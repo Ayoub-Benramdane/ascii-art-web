@@ -10,20 +10,22 @@
 <body>
     <center>
         <h1>Ascii Art Web</h1>
-        <form action="/" method="post">
-            <textarea name="text" cols="100" rows="20" required></textarea>
+        <form action="/ascii-art" method="post">
+            <textarea name="text" cols="100" rows="20" required>{{.Text}}</textarea>
             <br><br>
-            <input type="radio" name="banner" value="standard.txt" id="standard" checked>
+            <input type="radio" name="banner" value="standard.txt" id="standard" {{if eq .Banner "standard.txt" }} checked{{end}} required>
             <label for="standard">standard</label>
             <br><br>
-            <input type="radio" name="banner" value="shadow.txt" id="shadow">
+            <input type="radio" name="banner" value="shadow.txt" id="shadow" {{if eq .Banner "shadow.txt" }} checked{{end}}>
             <label for="shadow">shadow</label>
             <br><br>
-            <input type="radio" name="banner" value="thinkertoy.txt" id="thinkertoy">
+            <input type="radio" name="banner" value="thinkertoy.txt" id="thinkertoy" {{if eq .Banner "thinkertoy.txt" }} checked{{end}}>
             <label for="thinkertoy">thinkertoy</label>
             <br><br>
             <input type="submit" value="Submit">
         </form>
+        <hr>
+        <pre>{{.Result}}</pre>
     </center>
 </body>
 
