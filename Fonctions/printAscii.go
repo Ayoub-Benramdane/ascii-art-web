@@ -49,9 +49,7 @@ func AddLine(tableau [][]string, str string) string {
 			resultat += (tableau[int(str[k%len(str)])-32][k/len(str)%8])
 		}
 		if (k+1)%len(str) == 0 {
-			if int(str[k%len(str)]) >= 32 && int(str[k%len(str)]) <= 126 {
-				resultat += "\n"
-			}
+			resultat += "\n"
 		}
 	}
 	return resultat
