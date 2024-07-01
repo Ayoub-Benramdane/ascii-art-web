@@ -1,57 +1,104 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
-	"io"
 	"net/http"
+
+	"Fonctions/Fonctions"
 )
 
-var s = `
-<!DOCTYPE html>
-<html>
-<body>
-
-<h2>HTML Links</h2>
-<p>HTML links are defined with the a tag:</p>
-<h1>{{.}}</h1>
-<a href="/test">This is a link</a>
-
-</body>
-</html>
-`
-type test struct{
-	name string
-	lname string
+type ascii struct {
+	Result string
+	Banner string
+	Text   string
 }
 
-func index(w http.ResponseWriter, r *http.Request) {
-	// w.Write([]byte(s))
-
-	if r.URL.Path == "/" {
-		st := ""
-		r.ParseForm()
-		st += r.Form.Get("fname")
-		sv := r.Form.Get("lname")
-		
-		t := test{st,sv}
-		temp := template.Must(template.ParseFiles("./stc/index.html")) 
-		
-		temp.Execute(w, t)
-		// st += r.PostFormValue("fname")
-		// st += r.PostFormValue("lname")
-
-		// io.WriteString(w, s)
-		return
-	}
-	io.WriteString(w, "error 404 ")
-}
+var q ascii
 
 func main() {
 	http.HandleFunc("/", index)
-	k := http.FileServer(http.Dir("./stc/"))
-	http.Handle("/about/", http.StripPrefix("/about/", k))
-	http.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "./stc/help.html")
-	})
-	http.ListenAndServe(":8089", nil)
+	http.HandleFunc("POST /", ascii_Art)
+	// http.HandleFunc("/ascii-art", func(w http.ResponseWriter, r *http.Request) {
+	// 	http.Redirect(w, r, "/", http.StatusMovedPermanently)
+	// })
+
+	http.ListenAndServe(":8080", nil)
+}
+
+func index(w http.ResponseWriter, r *http.Request) {
+	// 1
+	// file, err := os.ReadFile("src/index.html")
+	// if err != nil {
+	// 	// w.WriteHeader(http.StatusInternalServerError)
+	// w.Write([]byte("ghhfg"))
+	// 	return
+	// }
+
+	// fmt.Fprint(w, string(file))
+
+	// 2
+	// http.ServeFile(w, r, "src/index.html")
+
+	// 3
+	// http.Handle("/",http.StripPrefix("/",http.FileServer(http.Dir("./src/"))))
+
+	// 4
+	if r.URL.Path != "/" {
+		http.Error(w, "Status Not Found 404", http.StatusNotFound)
+		return
+	}
+
+	temp, err := template.ParseFiles("src/index.html")
+	if err != nil {
+		http.Error(w, "Status Internal Server Error 500", http.StatusInternalServerError)
+		return
+	}
+	if err := r.ParseForm(); err != nil {
+		http.Error(w, "Status Bad Request 400", http.StatusBadRequest)
+		return
+	}
+	q.Text = r.Form.Get("text")
+	q.Banner = r.Form.Get("banner")
+	fmt.Println(q.Text, q.Banner)
+	if q.Banner == "" || q.Text == "" {
+		temp.Execute(w, nil)
+		return
+	}
+	q.Result = Fonctions.PrintAsciiArt(q.Banner, q.Text)
+
+	temp.Execute(w, q)
+}
+
+func ascii_Art(w http.ResponseWriter, r *http.Request) {
+	// 1
+	// str := r.FormValue("text")
+	// w.Write([]byte(str))
+	// 2
+
+	if r.Method != "POST" {
+		http.Error(w, "Status Method Not Allowed 404", http.StatusMethodNotAllowed)
+		return
+	}
+	if err := r.ParseForm(); err != nil {
+		http.Error(w, "Status Bad Request 400", http.StatusBadRequest)
+		return
+	}
+	str := r.Form.Get("text")
+	banner := r.Form.Get("banner")
+	res := Fonctions.PrintAsciiArt(banner, str)
+	var q ascii
+	q.Result = res
+	q.Banner = banner
+	if str[0:2] != "\r\n" {
+		q.Text = str
+	} else {
+		q.Text = "\r\n" + str
+	}
+	temp, err := template.ParseFiles("src/index.html")
+	if err != nil {
+		http.Error(w, "Status Internal Server Error 500", http.StatusInternalServerError)
+		return
+	}
+	temp.Execute(w, q)
 }
