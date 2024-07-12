@@ -19,36 +19,15 @@ var q ascii
 func main() {
 	http.HandleFunc("/", index)
 	http.HandleFunc("POST /", ascii_Art)
-	// http.HandleFunc("/ascii-art", func(w http.ResponseWriter, r *http.Request) {
-	// 	http.Redirect(w, r, "/", http.StatusMovedPermanently)
-	// })
-
+	fmt.Println("Server is Runing...")
 	http.ListenAndServe(":8080", nil)
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
-	// 1
-	// file, err := os.ReadFile("src/index.html")
-	// if err != nil {
-	// 	// w.WriteHeader(http.StatusInternalServerError)
-	// w.Write([]byte("ghhfg"))
-	// 	return
-	// }
-
-	// fmt.Fprint(w, string(file))
-
-	// 2
-	// http.ServeFile(w, r, "src/index.html")
-
-	// 3
-	// http.Handle("/",http.StripPrefix("/",http.FileServer(http.Dir("./src/"))))
-
-	// 4
 	if r.URL.Path != "/" {
 		http.Error(w, "Status Not Found 404", http.StatusNotFound)
 		return
 	}
-
 	temp, err := template.ParseFiles("src/index.html")
 	if err != nil {
 		http.Error(w, "Status Internal Server Error 500", http.StatusInternalServerError)
@@ -66,16 +45,10 @@ func index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	q.Result = Fonctions.PrintAsciiArt(q.Banner, q.Text)
-
 	temp.Execute(w, q)
 }
 
 func ascii_Art(w http.ResponseWriter, r *http.Request) {
-	// 1
-	// str := r.FormValue("text")
-	// w.Write([]byte(str))
-	// 2
-
 	if r.Method != "POST" {
 		http.Error(w, "Status Method Not Allowed 404", http.StatusMethodNotAllowed)
 		return
@@ -86,14 +59,14 @@ func ascii_Art(w http.ResponseWriter, r *http.Request) {
 	}
 	str := r.Form.Get("text")
 	banner := r.Form.Get("banner")
-	res := Fonctions.PrintAsciiArt(banner, str)
+	res := Fonctions.AsciiArt(banner, str)
 	var q ascii
 	q.Result = res
 	q.Banner = banner
-	if str[0:2] != "\r\n" {
-		q.Text = str
-	} else {
+	if len(str) > 1 && str[0:2] == "\r\n" {
 		q.Text = "\r\n" + str
+	} else {
+		q.Text = str
 	}
 	temp, err := template.ParseFiles("src/index.html")
 	if err != nil {

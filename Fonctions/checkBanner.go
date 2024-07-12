@@ -1,23 +1,20 @@
 package Fonctions
 
 import (
-	"fmt"
 	"os"
 	"strings"
 )
 
 func AsciiArt(Banner, str string) string {
-	fichier, err := os.ReadFile(Banner)
-	if err != nil || !CheakBanner(fichier, str) {
-		if err != nil {
-			fmt.Println(err)
-		}
+	file, err := os.ReadFile("banner/" + Banner)
+	if err != nil || !CheckBanner(file, str) {
 		os.Exit(0)
 	}
-	return PrintAsciiArt(string(fichier), str)
+	fileFinal := strings.ReplaceAll(string(file), "\r", "")
+	return PrintAsciiArt(string(fileFinal), str)
 }
 
-func CheakBanner(Banner []byte, str string) bool {
+func CheckBanner(Banner []byte, str string) bool {
 	var maxAscii rune
 	for _, c := range str {
 		if maxAscii == 0 && c >= 32 && c <= 126 {
@@ -26,10 +23,7 @@ func CheakBanner(Banner []byte, str string) bool {
 			maxAscii = c
 		}
 	}
-	Len_File := int((maxAscii-31) * 9)
-	if len(strings.Split(string(Banner), "\n")) < Len_File {
-		fmt.Println("Banner format not valid!")
-		return false
-	}
-	return true
+	Req_Len := int((maxAscii - 31) * 9)
+	Len_File := len(strings.Split(string(Banner), "\n"))
+	return Req_Len < Len_File
 }
