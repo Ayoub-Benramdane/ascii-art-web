@@ -4,29 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ascii Art Web</title>
+    <style>
+        #res {
+            width: 100wh;
+            overflow: scroll;
+        }
+    </style>
 </head>
 
 <body>
     <center>
         <h1>Ascii Art Web</h1>
-        <form action="/ascii-art" method="post">
-            <textarea name="text" cols="100" rows="20" required>{{.Text}}</textarea>
+        <form action="/ascii-art" method="post" required>
+            <textarea name="text" cols="100" rows="20">{{.Text}}</textarea>
             <br><br>
-            <input type="radio" name="banner" value="standard.txt" id="standard" {{if eq .Banner "standard.txt" }} checked{{end}} required>
-            <label for="standard">standard</label>
-            <br><br>
-            <input type="radio" name="banner" value="shadow.txt" id="shadow" {{if eq .Banner "shadow.txt" }} checked{{end}}>
-            <label for="shadow">shadow</label>
-            <br><br>
-            <input type="radio" name="banner" value="thinkertoy.txt" id="thinkertoy" {{if eq .Banner "thinkertoy.txt" }} checked{{end}}>
-            <label for="thinkertoy">thinkertoy</label>
+            <select name="banner" id="">
+                <option value="standard.txt">standard</option>
+                <option value="shadow.txt">shadow</option>
+                <option value="thinkertoy.txt">thinkertoy</option>
+            </select>
             <br><br>
             <input type="submit" value="Submit">
         </form>
     </center>
         <hr>
-        <pre>{{.Result}}</pre>
+        <pre id="res">{{.Result}}</pre>
 </body>
-
 </html>
