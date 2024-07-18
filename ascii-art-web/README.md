@@ -25,7 +25,7 @@ cd ascii-art-web
 ```
 go run . 
 ```
-4. Open your web browser and go to http://localhost:8081
+4. Open your web browser and go to http://localhost:8080
 
 ### Implementation Details
 

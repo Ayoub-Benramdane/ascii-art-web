@@ -45,13 +45,17 @@ func ascii_Art(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Status Bad Request 400", http.StatusBadRequest)
 		return
 	}
-	q.Text= r.Form.Get("text")
+	q.Text = r.Form.Get("text")
 	q.Banner = r.Form.Get("banner")
-	if q.Banner != "standard.txt" && q.Banner != "shadow.txt"  && q.Banner != "thinkertoy.txt" {
+	if q.Banner != "standard.txt" && q.Banner != "shadow.txt" && q.Banner != "thinkertoy.txt" {
 		http.Error(w, "Status Bad Request 400", http.StatusBadRequest)
 		return
 	}
 	q.Result = Fonctions.AsciiArt(q.Banner, q.Text)
+	if q.Result == "" {
+		http.Error(w, "Internal Server Error: status 500", http.StatusBadRequest)
+		return
+	}
 	if len(q.Text) > 1 && q.Text[0:2] == "\r\n" {
 		q.Text = "\r\n" + q.Text
 	}

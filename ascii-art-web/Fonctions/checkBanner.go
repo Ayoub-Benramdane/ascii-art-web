@@ -8,7 +8,7 @@ import (
 func AsciiArt(Banner, str string) string {
 	file, err := os.ReadFile("banner/" + Banner)
 	if err != nil || !CheckBanner(file, str) {
-		os.Exit(0)
+		return ""
 	}
 	fileFinal := strings.ReplaceAll(string(file), "\r", "")
 	return PrintAsciiArt(string(fileFinal), str)

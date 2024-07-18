@@ -3,28 +3,20 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ascii Art Web</title>
-    <style>
-        #res {
-            width: 100wh;
-            overflow: scroll;
-        }
-    </style>
 </head>
 
 <body>
     <center>
         <h1>Ascii Art Web</h1>
         <form action="/ascii-art" method="post" required>
-            <textarea name="text" cols="100" rows="20">{{.Text}}</textarea>
+            <textarea name="text" cols="100" rows="20" required>{{.Text}}</textarea>
             <br><br>
             <select name="banner" id="">
                 <option value="standard.txt">standard</option>
                 <option value="shadow.txt">shadow</option>
                 <option value="thinkertoy.txt">thinkertoy</option>
             </select>
-            <br><br>
             <input type="submit" value="Submit">
         </form>
     </center>

@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ascii Art Web</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-
         * {
             margin: 0;
             padding: 0;
@@ -22,6 +20,16 @@
             width: 100%;
             display: flex;
             background-image: linear-gradient(135deg, #ff9a9e 10%, #F6416C 100%);
+        }
+
+        .title {
+            font-family: "Black Ops One", system-ui;
+            color: #F6416C;
+            height: 40px;
+            font-size: 60px;
+            font-weight: bolder;
+            margin-top: 30px;
+            text-shadow: 4px 4px black;
         }
 
         ::selection {
@@ -92,6 +100,7 @@
 
         #res {
             color: black;
+            ;
             width: 100wh;
             overflow: auto;
             font-family: monospace;
@@ -118,9 +127,21 @@
             transform: scale(0.97);
         }
 
+        .navbar .buttons select>option {
+            color: #ff9a9e;
+            box-shadow: 2px 2px black;
+            border-radius: 20px;
+        }
+
         header .text-content {
             width: 40%;
             margin: 100px 0 0 50px;
+        }
+
+        #end {
+            text-align: center;
+            padding: 1em;
+            color: rgb(138, 91, 132);
         }
 
         @media (max-width:850px) {
@@ -162,14 +183,15 @@
 <body>
     <header>
         <center>
-            <h1>Ascii Art Web</h1>
+            <h1 class="title">Ascii Art Web</h1>
             <form action="/ascii-art" method="post" required>
                 <nav class="navbar">
                     <div class="logo"><img
-                            src="https://yt3.googleusercontent.com/IXOiOaUDpbDxBXeMMLUHKzrQWBzR4NKWwndxGLoK9E9jmR4Pf9MpVO_tfnIfhBp238ifs5QUCQ=s900-c-k-c0x00ffffff-no-rj" alt="">
+                            src="https://yt3.googleusercontent.com/IXOiOaUDpbDxBXeMMLUHKzrQWBzR4NKWwndxGLoK9E9jmR4Pf9MpVO_tfnIfhBp238ifs5QUCQ=s900-c-k-c0x00ffffff-no-rj"
+                            alt="">
                     </div>
                     <div class="buttons">
-                        <select name="banner" id="">
+                        <select name="banner" id="OPT">
                             <option value="standard.txt">Standard</option>
                             <option value="shadow.txt">Shadow</option>
                             <option value="thinkertoy.txt">Thinkertoy</option>
@@ -177,10 +199,15 @@
                         <input type="submit" value="Submit">
                     </div>
                 </nav>
-                <textarea name="text" id="text" cols="80" rows="10">{{.Text}}</textarea>
+                <textarea name="text" id="text" cols="40" rows="8" placeholder="type something...">{{.Text}}</textarea>
             </form>
         </center>
         <pre id="res">{{.Result}}</pre>
+        </div>
+        <div id="end">
+            © 2024 Ascii-art-web. All rights reserved.
+            <br>
+            Made By Hasnae
         </div>
     </header>
 </body>
