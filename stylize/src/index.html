@@ -123,8 +123,9 @@
             background-image: linear-gradient(135deg, #ff9a9e 10%, #F6416C 100%);
         }
 
-        .navbar .buttons input:hover {
-            transform: scale(0.97);
+        .navbar .buttons input:hover,
+        .navbar .buttons select:hover {
+            transform: scale(0.9);
         }
 
         .navbar .buttons select option {
@@ -199,7 +200,7 @@
                         <input type="submit" value="Submit">
                     </div>
                 </nav>
-                <textarea name="text" id="text" cols="40" rows="8" placeholder="type something...">{{.Text}}</textarea>
+                <textarea name="text" id="text" cols="40" rows="8" placeholder="type something..." maxlength="1000">{{.Text}}</textarea>
             </form>
         </center>
         <pre id="res">{{.Result}}</pre>
