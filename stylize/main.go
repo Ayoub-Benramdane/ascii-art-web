@@ -9,9 +9,7 @@ import (
 )
 
 type ascii struct {
-	Result string
-	Banner string
-	Text   string
+	Result, Banner, Text string
 }
 
 var q ascii
@@ -33,14 +31,10 @@ func index(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Status Internal Server Error 500", http.StatusInternalServerError)
 		return
 	}
-	temp.Execute(w, q)
+	temp.Execute(w, nil)
 }
 
 func ascii_Art(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		http.Error(w, "Status Method Not Allowed 405", http.StatusMethodNotAllowed)
-		return
-	}
 	if err := r.ParseForm(); err != nil {
 		http.Error(w, "Status Bad Request 400", http.StatusBadRequest)
 		return
@@ -59,8 +53,6 @@ func ascii_Art(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal Server Error: status 500", http.StatusBadRequest)
 		return
 	}
-
-
 	if len(q.Text) > 1 && q.Text[0:2] == "\r\n" {
 		q.Text = "\r\n" + q.Text
 	}
