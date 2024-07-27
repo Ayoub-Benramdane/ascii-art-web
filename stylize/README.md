@@ -1,8 +1,8 @@
-## ascii-art-web
+## ascii-art-web (Stylize)
 
 ### Description
 
-Ascii-Art-Web is a web site that allows you to convert text into ASCII art using different banner styles.
+Ascii-Art-Web (Stylize) is a web site that allows you to convert text into ASCII art using different banner styles, with a more appealing, intuitive, and user-friendly interface.
 
 ### Authors
 
@@ -25,7 +25,7 @@ cd ascii-art-web
 ```
 go run . 
 ```
-4. Open your web browser and go to http://localhost:8081
+4. Open your web browser and go to http://localhost:8404
 
 ### Implementation Details
 
@@ -47,4 +47,6 @@ The main steps of the algorithm are:
     - Modular design with a clear separation of responsibilities
     - Appropriate error handling and the use of HTTP status codes
     - Well-documented and readable code
-
+4. The website must be appealing, interactive, and intuitive, using CSS.
+5. The text must be readable regardless of the color choices.
+6. The website must be consistent, responsive, and interactive.
