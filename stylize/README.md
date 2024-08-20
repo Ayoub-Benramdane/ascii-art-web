@@ -1,17 +1,17 @@
-## ascii-art-web (Stylize)
+## <span style="color:magenta; size : 20px">*Ascii-Art-Web* (Stylize)</span>
 
-### Description
+### <span style="color:pink">Description
 
 Ascii-Art-Web (Stylize) is a web site that allows you to convert text into ASCII art using different banner styles, with a more appealing, intuitive, and user-friendly interface.
 
-### Authors
+### <span style="color:pink">Authors
 
 - Ayoub Benramdane
 - Anas Sebbar
 - Hasnae Lamrani
 
 
-### Usage
+### <span style="color:pink">Usage
 
 1. Clone the repository:
 ``` 
@@ -27,7 +27,7 @@ go run .
 ```
 4. Open your web browser and go to http://localhost:8404
 
-### Implementation Details
+### <span style="color:pink">Implementation Details
 
 The web site is build using the Go programming language. The web server handles HTTP requests, processes user input, and generates the ASCII art using a dedicated package.
 
@@ -39,7 +39,7 @@ The main steps of the algorithm are:
 4. The web server receives the generated ASCII art and displays it on the web page.
 
 
-### Requirements
+### <span style="color:pink">Requirements
 
 1. The web server must be written in Go and use the standard Go packages.
 2. The HTML templates must be placed in the templates directory at the root of the project.

@@ -132,6 +132,12 @@ header .navbar {
     padding-top: 30px;
 }
 
+#footer {
+    text-align: center;
+    padding: 1em;
+    color: rgb(138, 91, 132);
+}
+
 @media (max-width:850px) {   /*for devices with max-width = 850px*/
     header .navbar {
         flex-direction: column;
